@@ -15,7 +15,7 @@ class List
 		// void print(std::ofstream&);
 		int search(T& key);		//επιστρέφει την θέση του key στην λίστα, αλλιώς -1
 		bool isEmpty();		//επιστρέφει true ή false αν η λίστα είναι άδεια ή όχι
-		int insertStart(const T& dataIn);
+		int insertStart(T& dataIn);
 		int insertEnd(const T& dataIn);
 		int insertPos(const T& dataIn, int pos); //check!!!!
 		int deleteStart(T&);
@@ -68,7 +68,7 @@ bool List<T>::isEmpty()
 }
 
 template <typename T>
-int List<T>::insertStart(const T& dataIn)
+int List<T>::insertStart(T& dataIn)
 {
 	if(isEmpty())
 	{

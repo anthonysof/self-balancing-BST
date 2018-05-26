@@ -1,26 +1,24 @@
-#ifndef TREE_NODE
-#define TREE_NODE
-
+#pragma once
 template <typename T>
 class BSTree;
 
 template <typename T>
-class Tree_Node
+class TreeNode
 {
 	friend class BSTree<T>;
 private:
 	T data;
-	Tree_Node* leftChild;
-	Tree_Node* rightChild;
+	TreeNode* leftChild;
+	TreeNode* rightChild;
 
 public:
-	Tree_Node(T);
-	~Tree_Node();
+	TreeNode(T dataIn);
+	~TreeNode();
 
 };
 
 template <typename T>
-Tree_Node<T>::Tree_Node(T dataIn)
+TreeNode<T>::TreeNode(T dataIn)
 {
 	data = dataIn;
 	leftChild = 0;
@@ -28,9 +26,8 @@ Tree_Node<T>::Tree_Node(T dataIn)
 }
 
 template <typename T>
-Tree_Node<T>::~Tree_Node()
+TreeNode<T>::~TreeNode()
 {
 	if (leftChild) delete leftChild;
 	if (rightChild) delete rightChild;
 }
-#endif
