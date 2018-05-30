@@ -9,7 +9,7 @@ template <typename T>
 class BSTree
 {
 public:
-	BSTree(double cusr, double cusr);		//done
+	BSTree(double, double);		//done
 	//BSTree(const BSTree & src);	//cpy cstor
 	~BSTree();		//SEGFAULTS
 	bool isEmpty();		//done
@@ -77,9 +77,9 @@ BSTree<T>::BSTree(double cusr, double busr)
 {
 	root = NULL;
 	n = 0;
-	d = 5;
+	d = 0;
 	c = cusr;
-	b = busr
+	b = busr;
 }
 template<typename T>
 BSTree<T>::~BSTree()
@@ -192,7 +192,7 @@ TreeNode<T> BSTree<T>::searchTree(const T& key, T& e)
 			return *current;
 		}
 	}
-	return *root;
+	return NULL;
 }
 
 template<typename T>
@@ -234,10 +234,13 @@ int BSTree<T>::insert(const T& elem)
 	{
 		TreeNode<T> *temp;
 		T var;
+		T vor;
 		for(int i = 0; i < li->length(); i++)
 		{
 			li->deleteStart(var);
-			*temp = searchTree(var, var);	
+							
+			*temp = searchTree(var, vor);
+			std::cout<<"ELA GIWRGHHH "<<var<<std::endl;
 			if (maxHeight(temp) > ceil(c*log2(li->length()+1)))
 			{
 				treeReconstruction(temp);

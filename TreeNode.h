@@ -14,6 +14,7 @@ private:
 public:
 	TreeNode(T dataIn);
 	~TreeNode();
+	T getData();
 
 };
 
@@ -30,4 +31,10 @@ TreeNode<T>::~TreeNode()
 {
 	if (leftChild) delete leftChild;
 	if (rightChild) delete rightChild;
+}
+
+template <typename T>
+T TreeNode<T>::getData()
+{
+	return data;
 }
