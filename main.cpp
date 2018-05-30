@@ -7,9 +7,11 @@
 int main()
 {
 	BSTree<int> *d1 = new BSTree<int>(1.2,1);
+	List<int> *li = new List<int>();
 	//int ceiling1 = ceil(c*log2(n+1+d)); 
 	//int ceiling2 = ceil(c*log2(n+1));
-
+	int d = 0;
+	double c = 1.2;
 	// d1->insert(8);
 	// d1->insert(5);
 	// d1->insert(16);
@@ -33,15 +35,25 @@ int main()
 	// d1->insert(20);
 	// d1->insert(22);
 	// d1->insert(30);
+	// d1->insert(34);	
+	// d1->insert(38);
+	// d1->insert(40);
+	// d1->insert(45);
 
-	for(int i = 1; i<8; i++)
+
+	for(int i = 0; i<20; i++)
 	{
-		d1->insert(i);	
+		d1->insert(i);
 	}
 	int var = 0;
 	// TreeNode<int> temp = d1->searchTree(13, var);
 	// std::cout<<"Found "<<temp.getData()<<std::endl;
+
 	d1->printTree('p');
+	// TreeNode<int> *temp = d1->getRoot();
+	std::cout<<"Height of tree is: "<<d1->maxHeight(d1->getRoot())<<std::endl;
+	// d1->treeReconstruction(d1->root);
+		d1->printTree('p');
 	std::cout<<"Height of tree is: "<<d1->maxHeight(d1->getRoot())<<std::endl;
 
 

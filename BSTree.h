@@ -13,7 +13,7 @@ public:
 	//BSTree(const BSTree & src);	//cpy cstor
 	~BSTree();		//SEGFAULTS
 	bool isEmpty();		//done
-	TreeNode<T> searchTree(const T& key, T& found);	//done
+	bool searchTree(const T& key, TreeNode<T> *&found);	//done
 	int insert(const T& elem);	//done
 	int deleteNode(const T& key, T& deleted);	//done
 	void printTree(char order, TreeNode<T>* node);	//done
@@ -24,7 +24,8 @@ public:
 	int bstToList(const TreeNode<T>* node, List<T>& li);
 	TreeNode<T>* sortedListToBSTrecur(List<T> &li, int count);
 	TreeNode<T>* sortedListToBST(List<T>& li, TreeNode<T>* node);
-	void treeReconstruction(TreeNode<T>* node);
+	void treeReconstruction(TreeNode<T> *&node);
+	int getSize();
 	//void prettyPrint() bonus challenge
 private:
 	TreeNode<T> *root;
@@ -35,16 +36,22 @@ private:
 };
 
 template<typename T>
-void BSTree<T>::treeReconstruction(TreeNode<T>* node)
+int BSTree<T>::getSize()
+{
+	return n;
+}
+
+template<typename T>
+void BSTree<T>::treeReconstruction(TreeNode<T> *&node)
 {
 	List<T> *li = new List<T>();
 	bstToList(node, *li);
-	root = sortedListToBST(*li, node);
+	node = sortedListToBST(*li, node);
 	delete(li);
 }
 
 template<typename T>
-TreeNode<T>* BSTree<T>::sortedListToBST(List<T> &li, TreeNode<T>* node)
+TreeNode<T>* BSTree<T>::sortedListToBST(List<T> &li, TreeNode<T> *node)
 {
 	int count = li.length();
 	node = sortedListToBSTrecur(li, count);
@@ -107,6 +114,7 @@ T BSTree<T>::getNode(const TreeNode<T>* node)
 template<typename T>
 void BSTree<T>::printTree(char order)
 {
+
 	TreeNode<T> *node = root;
 	if (order == 'p')
 	{
@@ -170,12 +178,15 @@ void BSTree<T>::printTree(char order, TreeNode<T>* node)
 }
 
 template<typename T>
-TreeNode<T> BSTree<T>::searchTree(const T& key, T& e)
+bool BSTree<T>::searchTree(const T& key, TreeNode<T> *&found)
 {
 	int count = -1;
 	TreeNode<T> *current = root;
+	TreeNode<T> *parent = 0;
 	while(current)
 	{
+		parent = current;
+
 		if (key < current->data)
 		{
 			current = current->leftChild;
@@ -188,11 +199,12 @@ TreeNode<T> BSTree<T>::searchTree(const T& key, T& e)
 		}
 		else 
 		{
-			e = current->data;
-			return *current;
+			std::cout<<parent->data<<std::endl;
+			found = parent;
+			return true;
 		}
 	}
-	return NULL;
+	return false;
 }
 
 template<typename T>
@@ -200,12 +212,13 @@ int BSTree<T>::insert(const T& elem)
 {
 	TreeNode<T> *current = root;
 	TreeNode<T> *parent = 0;
-	List<T> *li = new List<T>();
-	int depth = -1;
+	List<TreeNode<T>> *li = new List<TreeNode<T>>();
+	int depth = 1;
 	while (current)
 	{
 		parent = current;
-		li->insertStart(parent->data);
+		li->insertStart(*parent);
+		std::cout<<"ELA GIWRGH"<<std::endl;
 		if(elem < current->data) 
 		{
 			current = current->leftChild;
@@ -230,26 +243,33 @@ int BSTree<T>::insert(const T& elem)
 	}
 	else
 		root = newnode;
+	std::cout<<"Inserted: "<<elem<<std::endl;
+	std::cout<<"Depth: "<<depth<<" log: "<<ceil(c*log2(n+1+d))<<std::endl;
 	if (depth > ceil(c*log2(n+1+d)))
 	{
 		TreeNode<T> *temp;
 		T var;
 		T vor;
-		for(int i = 0; i < li->length(); i++)
+		int lsize = li->length();
+		for(int i = 0; i < lsize; i++)
 		{
-			li->deleteStart(var);
+			li->deleteStart(*temp);
 							
-			*temp = searchTree(var, vor);
-			std::cout<<"ELA GIWRGHHH "<<var<<std::endl;
-			if (maxHeight(temp) > ceil(c*log2(li->length()+1)))
+			//searchTree(var, temp);
+					std::cout<<"Paw gia reconstruct"<<lsize<<std::endl;
+			if (maxHeight(temp) > ceil(c*log2(lsize+1)))
 			{
+				TreeNode<T> *temp2 = NULL;
+				std::cout<<"MPIKA"<<std::endl;
 				treeReconstruction(temp);
-				std::cout<<"Reconstructing tree..."<<std::endl;
+				std::cout<<"Reconstructing tree...with root: "<<temp->data<<std::endl;
+				printTree('p');
 				delete(li);
 				break;
 			}
 		}
 	}
+	//delete(li);
 	return depth;
 }
 
@@ -309,7 +329,10 @@ template<typename T>
 int BSTree<T>::maxHeight(const TreeNode<T>* node)
 {
 	if(!node)
+	{
 		return 0;
+			std::cout<<"ELA GIANNIO"<<std::endl;
+	}
 	else
 	{
 		int lDepth = maxHeight(node->leftChild);

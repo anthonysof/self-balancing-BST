@@ -13,6 +13,8 @@ private:
 
 public:
 	TreeNode(T dataIn);
+	TreeNode()
+	{};
 	~TreeNode();
 	T getData();
 
