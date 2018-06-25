@@ -32,7 +32,7 @@ public:
 private:
 	TreeNode<T> *root;
 	int n;
-	int d=0;
+	int d = 0;
 	double c;
 	double b;
 };

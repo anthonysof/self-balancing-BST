@@ -13,9 +13,14 @@ int main(int argc, char* argv[])
 	}
 	double c = atof(argv[1]);
 	double b = atof(argv[2]);
-	if (c == 0)
+	if (c <= 1)
 	{
-		std::cerr << "C must be other than 0"<<std::endl;
+		std::cerr << "C must be bigger than 1"<<std::endl;
+		return 1;
+	}
+	if(b <= 0)
+	{
+		std::cerr << "B must be bigger than 0"<<std::endl;
 		return 1;
 	}
 	BSTree<int> *d1 = new BSTree<int>(c,b);
@@ -40,6 +45,7 @@ int main(int argc, char* argv[])
 	// d1->insert(2);
 	// d1->insert(11);	
 	// d1->insert(13);	
+	// d1->d = 5;
 	// d1->insert(10);
 	// d1->insert(40);
 	// d1->insert(20);
@@ -50,7 +56,7 @@ int main(int argc, char* argv[])
 	{
 		d1->insert(i);	
 	}
-	int var = 0;
+	// int var = 0;
 	// TreeNode<int> temp = d1->searchTree(13, var);
 	// std::cout<<"Found "<<temp.getData()<<std::endl;
 	//d1->printTree('p');
