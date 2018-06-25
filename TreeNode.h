@@ -15,7 +15,6 @@ public:
 	TreeNode(T dataIn);
 	TreeNode()
 	{};
-	// ~TreeNode();
 	T getData();
 
 };
@@ -27,14 +26,6 @@ TreeNode<T>::TreeNode(T dataIn)
 	leftChild = 0;
 	rightChild = 0;
 }
-
-// template <typename T>
-// TreeNode<T>::~TreeNode()
-// {
-// 	if (leftChild) delete leftChild;
-// 	if (rightChild) delete rightChild;
-// 	delete this;
-// }
 
 template <typename T>
 T TreeNode<T>::getData()

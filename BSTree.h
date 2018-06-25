@@ -10,11 +10,10 @@ class BSTree
 {
 public:
 	BSTree(double, double);		//done
-	//BSTree(const BSTree & src);	//cpy cstor
-	~BSTree();		//SEGFAULTS
+	//~BSTree();		//SEGFAULTS
 	bool isEmpty();		//done
-	TreeNode<T> searchTree(const T& key, T& found);	//done
-	int insert(const T& elem);	//done
+	TreeNode<T> searchTree(const T& key, T& found);	//ftiaxti
+	int insert(const T& elem);	//ftiaxti me search
 	TreeNode<T>* deleteNode(const T& key, TreeNode<T>* root, bool &flag);	//done
 	void deleteNode(const T& key);
 	TreeNode<T>* minNode(TreeNode<T>* node);
@@ -138,14 +137,14 @@ BSTree<T>::BSTree(double cusr, double busr)
 	c = cusr;
 	b = busr;
 }
-template<typename T>
-BSTree<T>::~BSTree()
-{
-	if(!isEmpty())
-	{
-		delete root;
-	}
-}
+//template<typename T>
+// BSTree<T>::~BSTree()
+// {
+// 	if(!isEmpty())
+// 	{
+// 		delete root;
+// 	}
+// }
 template<typename T>
 bool BSTree<T>::isEmpty()
 {
@@ -292,11 +291,15 @@ int BSTree<T>::insert(const T& elem)
 	{
 		TreeNode<T> *temp;
 		TreeNode<T> *papatemp;
-		for(int i = 0; i < li->length(); i++)
+		int lisz = li->length();
+		for(int i = 0; i < lisz; i++)
 		{
 			li->deleteStart(temp);
-			li->deleteStart(papatemp);
-			char dir;
+			if(li->deleteStart(papatemp) == 0)
+			{
+				char dir = 'r';
+				papatemp = root;
+			}
 			if(temp->data > papatemp->data)
 			{
 				dir = 'r';
@@ -318,6 +321,7 @@ int BSTree<T>::insert(const T& elem)
 				delete(li);
 				break;
 			}
+			li->insertStart(papatemp);
 		}
 	}
 	return depth;
