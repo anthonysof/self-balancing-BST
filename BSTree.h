@@ -32,7 +32,7 @@ public:
 private:
 	TreeNode<T> *root;
 	int n;
-	int d;
+	int d=0;
 	double c;
 	double b;
 };
@@ -76,9 +76,11 @@ void BSTree<T>::deleteNode(const T& key)
 template<typename T>
 void BSTree<T>::printTreeStats()
 {
+	int heightUlt = c*log2(n+1)+b+1;
 	std::cout<<"Height of tree is: "<<maxHeight(getRoot())<<std::endl;
 	std::cout<<"Number of elements: "<<n<<std::endl;
 	std::cout<<"Deletion counter: "<<d<<std::endl;
+	std::cout<<"Maximum Height Allowed: "<<heightUlt<<std::endl;
 }
 
 template<typename T>
@@ -256,7 +258,7 @@ int BSTree<T>::insert(const T& elem)
 	TreeNode<T> *current = root;
 	TreeNode<T> *parent = 0;
 	List<TreeNode<T>*> *li = new List<TreeNode<T>*>();
-	int depth = -1;
+	int depth = 0;
 	while (current)
 	{
 		parent = current;

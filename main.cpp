@@ -77,7 +77,6 @@ int main(int argc, char* argv[])
 		d1->deleteNode(i);
 	}
 	d1->printTree('p');
-	d1->printTreeStats();
 
 	return 0;
 }
