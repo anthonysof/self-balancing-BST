@@ -294,10 +294,11 @@ int BSTree<T>::insert(const T& elem)
 		int lisz = li->length();
 		for(int i = 0; i < lisz; i++)
 		{
-			li->deleteStart(temp);
+			li->deleteStart(temp);\
+			char dir;
 			if(li->deleteStart(papatemp) == 0)
 			{
-				char dir = 'r';
+				dir = 'r';
 				papatemp = root;
 			}
 			if(temp->data > papatemp->data)
