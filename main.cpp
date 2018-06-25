@@ -60,12 +60,24 @@ int main(int argc, char* argv[])
 	//std::cout<<"Height of treess is: "<<d1->maxHeight(d1->getRoot())<<std::endl;
 	std::cout<<"-----------------\nAfter Inserts:\n";
 	d1->printTree('p');
+	d1->printTreeStats();
 	int temp;
-	std::cout<<d1->deleteNode(19, temp)<<std::endl;
-	d1->deleteNode(18, temp);
-	d1->deleteNode(17, temp);
-	d1->deleteNode(6,temp);
+	// d1->deleteNode(19);
+	// d1->printTree('p');
+	// d1->deleteNode(18);
+	// d1->printTree('p');
+	// d1->deleteNode(17);
+	// d1->printTree('p');
+	// d1->deleteNode(16);
+	// d1->printTree('p');
+	// d1->deleteNode(2229);
+	// d1->printTree('p');
+	for(int i = 19; i>5; i--)
+	{
+		d1->deleteNode(i);
+	}
 	d1->printTree('p');
+	d1->printTreeStats();
 
 	return 0;
 }

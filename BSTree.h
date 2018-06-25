@@ -15,7 +15,9 @@ public:
 	bool isEmpty();		//done
 	TreeNode<T> searchTree(const T& key, T& found);	//done
 	int insert(const T& elem);	//done
-	int deleteNode(const T& key, T& deleted);	//done
+	TreeNode<T>* deleteNode(const T& key, TreeNode<T>* root, bool &flag);	//done
+	void deleteNode(const T& key);
+	TreeNode<T>* minNode(TreeNode<T>* node);
 	void printTree(char order, TreeNode<T>* node);	//done
 	void printTree(char order);
 	void printTreeStats();
@@ -34,6 +36,42 @@ private:
 	double c;
 	double b;
 };
+
+template<typename T>
+TreeNode<T>* BSTree<T>::minNode(TreeNode<T>* node)
+{
+	if(node == NULL)
+		return NULL;
+	else if(node->leftChild == NULL)
+		return node;
+	else
+		return minNode(node->leftChild);
+}
+
+template<typename T>
+void BSTree<T>::deleteNode(const T& key)
+{
+	bool flag = true;
+	root = deleteNode(key,root,flag);
+	if(flag)
+	{
+		std::cout<<"Deleted: "<<key<<std::endl;
+		n--;
+		d++;
+		if(d >= ceil((pow(2,(b/c))-1)*(n+1)))
+		{
+			d = 0;
+			std::cout<<"Deletion counter limit hit. Reconstructing whole tree..."<<std::endl;
+			treeReconstruction(root,root,'l');
+			printTreeStats();
+		}
+	}
+	else
+	{
+		std::cout<<"Deletion failed."<<std::endl;
+	}
+	
+} 
 
 template<typename T>
 void BSTree<T>::printTreeStats()
@@ -284,73 +322,39 @@ int BSTree<T>::insert(const T& elem)
 }
 
 template<typename T>
-int BSTree<T>::deleteNode(const T& key, T& deleted)
+TreeNode<T>* BSTree<T>::deleteNode(const T& key, TreeNode<T>* node, bool &flag)
 {
-	if(isEmpty)
+	TreeNode<T>* temp;
+	if(node == NULL)
 	{
-		std::cout<<"Tree is empty..."<<std::endl;
-		return 0
+		flag = false;
+		std::cout<<key<<" not found"<<std::endl;
+		return NULL;
 	}
-	std::cout<<"Deleting "<<key<<"..."<<std::endl;
-	TreeNode<T> *current = root;
-	TreeNode<T> *parent = 0;
-	bool found = false;
-			//std::cout<<"PSAXNO PSAXNO"<<std::endl;
-
-	while(current)
+	else if(key < node->data)
 	{
-		if(current->data == key)
-			found = true;
-		parent = current;
-		if (key < current->data)
-			current = current->leftChild;
-		else
-			current = current->rightChild;
+		node->leftChild = deleteNode(key, node->leftChild,flag);
 	}
-	if(!found)
-		std::cout<<key<<" not found."<<std::endl;
-		return 0;
-	deleted = current->data;
-	d++;
-	
-	if(current->leftChild and current->rightChild)
+	else if(key > node->data)
 	{
-		TreeNode<T> *temp = current->leftChild;
-		TreeNode<T> *papatemp = current;
-		while (temp->rightChild)
-		{
-			papatemp = temp;
-			temp = temp->rightChild;
-		}
-		current->data = temp->data;
-		current = temp;
-		parent = papatemp;
+		node->rightChild = deleteNode(key, node->rightChild,flag);
 	}
-	TreeNode<T> *cemp;
-	if(current->leftChild)
-		cemp = current->leftChild;
-	else
-		cemp = current->rightChild;
-
-	if(current == root)
-		root = cemp;
+	else if(node->leftChild and node->rightChild)
+	{
+		temp = minNode(node->rightChild);	//KALO DIORTHOMA
+		node->data = temp->data;
+		node->rightChild = deleteNode(node->data, node->rightChild,flag);
+	}
 	else
 	{
-		if(current == parent->leftChild)
-			parent->leftChild = cemp;
-		else
-			parent->rightChild = cemp;
+		temp = node;
+		if(node->leftChild == NULL)
+			node = node->rightChild;
+		else if(node->rightChild == NULL)
+			node = node->leftChild;
+		delete temp;
 	}
-	delete current;
-	if(d >= ceil((pow(2,(b/c))-1)*(n+1)))
-	{
-		d = 0;
-		std::cout<<"Deletion counter limit hit. Reconstructing whole tree..."<<std::endl;
-		treeReconstruction(root,root,'l');
-		printTreeStats();
-	}
-	std::cout<<"Deletion Counter: "<<d<<std::endl;
-	return 1;
+	return node;
 }
 
 template<typename T>
