@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
 	std::cout<<"-----------------\nAfter Inserts:\n";
 	d1->printTree('p');
 	d1->printTreeStats();
-	int temp;
+	int temp = 0;
 	// d1->deleteNode(19);
 	// d1->printTree('p');
 	// d1->deleteNode(18);
@@ -83,6 +83,7 @@ int main(int argc, char* argv[])
 		d1->deleteNode(i);
 	}
 	d1->printTree('p');
+	std::cout<<d1->searchTree(666,temp)<<"Found "<<temp<<std::endl;
 
 	return 0;
 }

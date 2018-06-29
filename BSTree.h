@@ -9,33 +9,35 @@ template <typename T>
 class BSTree
 {
 public:
-	BSTree(double, double);		//done
+	BSTree(double, double);		//constructor
 	//~BSTree();		//SEGFAULTS
-	bool isEmpty();		//done
-	TreeNode<T> searchTree(const T& key, T& found);	//ftiaxti
-	int insert(const T& elem);	//ftiaxti me search
-	TreeNode<T>* deleteNode(const T& key, TreeNode<T>* root, bool &flag);	//done
-	void deleteNode(const T& key);
-	TreeNode<T>* minNode(TreeNode<T>* node);
-	void printTree(char order, TreeNode<T>* node);	//done
-	void printTree(char order);
-	void printTreeStats();
-	T getNode(const TreeNode<T>* node);	//done
-	int maxHeight(const TreeNode<T>* node);	//done
-	TreeNode<T>* getRoot();
-	int bstToList(const TreeNode<T>* node, List<T>& li);
-	TreeNode<T>* sortedListToBSTrecur(List<T> &li, int count);
-	TreeNode<T>* sortedListToBST(List<T>& li, TreeNode<T>* node);
-	void treeReconstruction(TreeNode<T>* node, TreeNode<T>* parentNode, char succession);
+	bool isEmpty();		//bool μέθοδος, επιστρέφει True αν το δένδρο είναι άδειο
+	bool searchTree(const T& key, T& found);	//bool, επιστρέφει True αν βρει στο δένδρο το key και το τοποθετεί στο found
+	int insert(const T& elem);	//εισάγει στοιχείο στο δένδρο, επιστρέφει 1 άν πέτυχε η εισαγωγή
+	TreeNode<T>* deleteNode(const T& key, TreeNode<T>* root, bool &flag); //βοηθητική της παρακάτω για διαγραφή αναδρομικά
+	void deleteNode(const T& key); //διαγράφει τον κόμβο με την τιμή key
+	TreeNode<T>* minNode(TreeNode<T>* node); //βρίσκει το ελάχιστο στοιχείο ενός υποδένδρου με ρίζα node, χρησιμοποιείται στην διαγραφή
+	void printTree(char order, TreeNode<T>* node); //βοηθητική μέθοδος για την παρακάτω για την εκτύπωση με αναδρομικό τρόπο
+	void printTree(char order); //εκτυπώνει το δένδρο με ορίσματα 'p': preorder, 'i': inorder, 's':postorder
+	void printTreeStats(); //εκτυπώνει διάφορα βοηθητικά στατιστικά όπως αριθμο στοιχείων, διαγραφών, ύψος
+	T getNode(const TreeNode<T>* node);	//επιστρέφει τα δεδομένα ενός κόμβου
+	int maxHeight(const TreeNode<T>* node);	//υπολογίζει το ύψος ενός υποδένδρου με ριζα node
+	TreeNode<T>* getRoot(); //επιστρέφει pointer στην ρίζα του δένδρου
+	int bstToList(const TreeNode<T>* node, List<T>& li); //εισάγει ένα δυαδικό δένδρο αναζήτησης στην λίστα li ταξινομημένα
+	TreeNode<T>* sortedListToBSTrecur(List<T> &li, int count); //βοηθητική μέθοδος για την παρακάτω
+	TreeNode<T>* sortedListToBST(List<T>& li, TreeNode<T>* node); //κατασκευάζει με αναδρομικό τρόπο ένα δυαδικό δένδρο αναζήτησης από ταξινομημένη λίστα με Ο(n)
+	void treeReconstruction(TreeNode<T>* node, TreeNode<T>* parentNode, char succession); //ανακατασκευάζει το υποδένδρο με ρίζα node
 	//void prettyPrint() bonus challenge
 private:
 	TreeNode<T> *root;
-	int n;
-	int d = 0;
-	double c;
-	double b;
+	int n;	//πλήθος στοιχείων δένδρου
+	int d = 0;	//αριθμός διαγραφών
+	double c;	//σταθερά c
+	double b;	//σταθερά b
 };
-
+/* Επιστρέφει αναδρομικά δείκτη στον κόμβο του υποδένδρου με
+ρίζα node, με την μικρότερη τιμή, προφανώς σε ΔΔΑ είναι ο κάτω 
+αριστερά κόμβος */
 template<typename T>
 TreeNode<T>* BSTree<T>::minNode(TreeNode<T>* node)
 {
@@ -47,6 +49,12 @@ TreeNode<T>* BSTree<T>::minNode(TreeNode<T>* node)
 		return minNode(node->leftChild);
 }
 
+/*Κλήση αυτής της μεθόδου με μοναδικό όρισμα την τιμή
+του στοιχείου που θέλουμε να διαγράψουμε θα καλέσει την βοηθητική
+deleteNode με τα παραπάνω ορίσματα για να γίνει αναδρομικά η διαγραφή
+σε αυτό το ΔΔΑ έχει προστεθεί η έξτρα συνθήκη με τον αριθμο διαγραφών
+ώστε να γίνεται ανακατασκευή όλου του δένδρου όταν φτάσει το d στην συγκεκριμένη
+τιμή*/
 template<typename T>
 void BSTree<T>::deleteNode(const T& key)
 {
@@ -127,7 +135,11 @@ TreeNode<T>* BSTree<T>::getRoot()
 {
 	return root;
 }
-
+/*Constructor τοτ συγκεκριμένου BST
+αρχικοποιεί το πλήθος των στοιχείων με 0,
+τον αριθμό διαγραφών με 0 και τις τιμές b 
+και c σύμφωνα με αυτές που έδωσε ο χρήστης κατα 
+την εκτέλεση*/
 template <typename T>
 BSTree<T>::BSTree(double cusr, double busr)
 {
@@ -159,11 +171,15 @@ T BSTree<T>::getNode(const TreeNode<T>* node)
 {
 	return node->data;
 }
-
+/*Εκτύπωση του ΔΔΑ αναδρομικά με την χρήση μίας ακόμη
+βοηθητικής μεθόδου με παραπάνω ορίσματα,
+σύμφωνα με τον χαρακτήρα για την διάσχιση που επιθυμεί ο χρήστης
+p: προδιάταξη, i: ενδοδιάταξη, s: μεταδιάταξη*/
 template<typename T>
 void BSTree<T>::printTree(char order)
 {
 	TreeNode<T> *node = root;
+	//preorder
 	if (order == 'p')
 	{
 		if(node)
@@ -174,6 +190,7 @@ void BSTree<T>::printTree(char order)
 		}
 	}
 	else if (order == 'i')
+	//inorder
 	{
 		if(node)
 		{
@@ -183,6 +200,7 @@ void BSTree<T>::printTree(char order)
 		}
 	}
 	else if (order == 's')
+	//postorder
 	{
 		if(node)
 		{
@@ -224,9 +242,10 @@ void BSTree<T>::printTree(char order, TreeNode<T>* node)
 		}
 	}
 }
-
+/*αναζήτηση στο ΔΔΑ για το στοιχείο με την τιμή key
+και τοποθέτηση του εφόσον το βρίσκει στην μεταβλήτη e */
 template<typename T>
-TreeNode<T> BSTree<T>::searchTree(const T& key, T& e)
+bool BSTree<T>::searchTree(const T& key, T& e)
 {
 	int count = -1;
 	TreeNode<T> *current = root;
@@ -245,17 +264,24 @@ TreeNode<T> BSTree<T>::searchTree(const T& key, T& e)
 		else 
 		{
 			e = current->data;
-			return *current;
+			return true;
 		}
 	}
-	return NULL;
+	return false;
 }
 
+/*εισαγωγή του στοιχείου elem στο ΔΔΑ
+έχει προστεθεί η έξτρα συνθήκη στο συγκεκριμένο ΔΔΑ
+για να διατηρεί την ισορροπία του*/
 template<typename T>
 int BSTree<T>::insert(const T& elem)
 {
 	TreeNode<T> *current = root;
 	TreeNode<T> *parent = 0;
+	/*θα χρησιμοποιηθεί μία δομή απλά συνδεδεμένης λίστας
+	θα μπορούσε να χρησιμοποιηθεί μία απλή στοίβα αλλά αφού είχαμε 
+	υλοποιήσει συναρτήσεις push και pop (insertStart, deleteStart) για την 1η εργασία πρακτικά η 
+	λίστα μπορεί να χρησιμοποιηθεί και ως στοίβα*/
 	List<TreeNode<T>*> *li = new List<TreeNode<T>*>();
 	int depth = 0;
 	while (current)
@@ -287,6 +313,7 @@ int BSTree<T>::insert(const T& elem)
 	else
 		root = newnode;
 	std::cout<<"Inserting: "<<elem<<std::endl;
+	//Έλεγχος βάθους εισαγώμενου κόμβου και ανακατασκευή αν χρειάζεται
 	if (depth > ceil(c*log2(n+1+d)))
 	{
 		TreeNode<T> *temp;
@@ -309,11 +336,16 @@ int BSTree<T>::insert(const T& elem)
 			{
 				dir = 'l';
 			}
-			//std::cout<<"ELA GIWRGHHH "<<var<<std::endl;
 			if (maxHeight(temp) > ceil(c*log2(li->length()+1)))
 			{
 				printTree('p');
 				printTreeStats();
+				/* το όρισμα dir μας δείχνει αν ήταν 
+				αριστερό ή δεξί παιδί ο κόμβος ρίζα του υποδένδρου
+				που θα ανακατασκευαστεί για την σωστή σύνδεσή του
+				αν αυτός ο κόμβος είναι η ρίζα του αρχικού δένδρου
+				και έχουμε ολική ανακατασκευή το όρισμα αυτό είναι
+				irrelevant */
 				treeReconstruction(temp,papatemp, dir);
 				std::cout<<"Reconstructing tree..."<<std::endl;
 				printTree('p');
@@ -328,6 +360,7 @@ int BSTree<T>::insert(const T& elem)
 	return depth;
 }
 
+/*διαγραφή κόμβου με αναδρομή*/
 template<typename T>
 TreeNode<T>* BSTree<T>::deleteNode(const T& key, TreeNode<T>* node, bool &flag)
 {
@@ -364,6 +397,8 @@ TreeNode<T>* BSTree<T>::deleteNode(const T& key, TreeNode<T>* node, bool &flag)
 	return node;
 }
 
+/*αναδρομικός υπολογισμός ύψους υποδένδρου με ρίζα
+node */
 template<typename T>
 int BSTree<T>::maxHeight(const TreeNode<T>* node)
 {
@@ -381,7 +416,8 @@ int BSTree<T>::maxHeight(const TreeNode<T>* node)
 }
 
 
-
+/*Γέμισμα λίστας li με τα στοιχεία του δένδρου node 
+ταξινομιμένα, διασχίζοντας το με ενδοδιάταξη*/
 template<typename T>
 int BSTree<T>::bstToList(const TreeNode<T>* node, List<T>& li)
 {
