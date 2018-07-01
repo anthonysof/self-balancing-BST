@@ -1,0 +1,268 @@
+Inserting: 1
+Inserting: 2
+Inserting: 3
+Inserting: 4
+Inserting: 5
+Inserting: 6
+1
+2
+3
+4
+5
+6
+Height of tree is: 6
+Number of elements: 6
+Deletion counter: 0
+Maximum Height Allowed: 5
+Reconstructing tree...
+1
+2
+5
+4
+3
+6
+Height of tree is: 5
+Number of elements: 6
+Deletion counter: 0
+Maximum Height Allowed: 5
+Inserting: 7
+Inserting: 8
+1
+2
+5
+4
+3
+6
+7
+8
+Height of tree is: 6
+Number of elements: 8
+Deletion counter: 0
+Maximum Height Allowed: 5
+Reconstructing tree...
+1
+5
+3
+2
+4
+7
+6
+8
+Height of tree is: 4
+Number of elements: 8
+Deletion counter: 0
+Maximum Height Allowed: 5
+Inserting: 9
+Inserting: 10
+Inserting: 11
+1
+5
+3
+2
+4
+7
+6
+8
+9
+10
+11
+Height of tree is: 7
+Number of elements: 11
+Deletion counter: 0
+Maximum Height Allowed: 6
+Reconstructing tree...
+1
+5
+3
+2
+4
+7
+6
+10
+9
+8
+11
+Height of tree is: 6
+Number of elements: 11
+Deletion counter: 0
+Maximum Height Allowed: 6
+Inserting: 12
+Inserting: 13
+1
+5
+3
+2
+4
+7
+6
+10
+9
+8
+11
+12
+13
+Height of tree is: 7
+Number of elements: 13
+Deletion counter: 0
+Maximum Height Allowed: 6
+Reconstructing tree...
+1
+5
+3
+2
+4
+10
+8
+7
+6
+9
+12
+11
+13
+Height of tree is: 6
+Number of elements: 13
+Deletion counter: 0
+Maximum Height Allowed: 6
+Inserting: 14
+Inserting: 15
+1
+5
+3
+2
+4
+10
+8
+7
+6
+9
+12
+11
+13
+14
+15
+Height of tree is: 7
+Number of elements: 15
+Deletion counter: 0
+Maximum Height Allowed: 6
+Reconstructing tree...
+1
+9
+5
+3
+2
+4
+7
+6
+8
+13
+11
+10
+12
+15
+14
+Height of tree is: 5
+Number of elements: 15
+Deletion counter: 0
+Maximum Height Allowed: 6
+Inserting: 16
+Inserting: 17
+Inserting: 18
+Inserting: 19
+1
+9
+5
+3
+2
+4
+7
+6
+8
+13
+11
+10
+12
+15
+14
+16
+17
+18
+19
+Height of tree is: 8
+Number of elements: 19
+Deletion counter: 0
+Maximum Height Allowed: 7
+Reconstructing tree...
+1
+9
+5
+3
+2
+4
+7
+6
+8
+13
+11
+10
+12
+15
+14
+18
+17
+16
+19
+Height of tree is: 7
+Number of elements: 19
+Deletion counter: 0
+Maximum Height Allowed: 7
+-----------------
+After Inserts:
+1
+9
+5
+3
+2
+4
+7
+6
+8
+13
+11
+10
+12
+15
+14
+18
+17
+16
+19
+Height of tree is: 7
+Number of elements: 19
+Deletion counter: 0
+Maximum Height Allowed: 7
+Deleted: 19
+Deleted: 18
+Deleted: 17
+Deleted: 16
+Deleted: 15
+Deleted: 14
+Deleted: 13
+Deleted: 12
+Deleted: 11
+Deleted: 10
+Deleted: 9
+Deleted: 8
+Deleted: 7
+Deleted: 6
+Deletion counter limit hit. Reconstructing whole tree...
+Height of tree is: 3
+Number of elements: 5
+Deletion counter: 0
+Maximum Height Allowed: 5
+3
+2
+1
+5
+4
+0Found 0
+5

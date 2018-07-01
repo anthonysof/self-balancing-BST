@@ -24,8 +24,6 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 	BSTree<int> *d1 = new BSTree<int>(c,b);
-	//int ceiling1 = ceil(c*log2(n+1+d)); 
-	//int ceiling2 = ceil(c*log2(n+1));
 
 	// d1->insert(8);
 	// d1->insert(5);
@@ -45,7 +43,6 @@ int main(int argc, char* argv[])
 	// d1->insert(2);
 	// d1->insert(11);	
 	// d1->insert(13);	
-	// d1->d = 5;
 	// d1->insert(10);
 	// d1->insert(40);
 	// d1->insert(20);
@@ -56,12 +53,6 @@ int main(int argc, char* argv[])
 	{
 		d1->insert(i);	
 	}
-	// int var = 0;
-	// TreeNode<int> temp = d1->searchTree(13, var);
-	// std::cout<<"Found "<<temp.getData()<<std::endl;
-	//d1->printTree('p');
-	//std::cout<<"Height of treess is: "<<d1->maxHeight(d1->getRoot())<<std::endl;
-	//d1->treeReconstruction(d1->getRoot());
 	//d1->printTree('p');
 	//std::cout<<"Height of treess is: "<<d1->maxHeight(d1->getRoot())<<std::endl;
 	std::cout<<"-----------------\nAfter Inserts:\n";
@@ -84,6 +75,8 @@ int main(int argc, char* argv[])
 	}
 	d1->printTree('p');
 	std::cout<<d1->searchTree(666,temp)<<"Found "<<temp<<std::endl;
+	temp = d1->countTreeNodes(d1->getRoot());
+	std::cout<<temp<<std::endl;
 
 	return 0;
 }

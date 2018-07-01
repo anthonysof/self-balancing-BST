@@ -27,6 +27,7 @@ public:
 	TreeNode<T>* sortedListToBSTrecur(List<T> &li, int count); //βοηθητική μέθοδος για την παρακάτω
 	TreeNode<T>* sortedListToBST(List<T>& li, TreeNode<T>* node); //κατασκευάζει με αναδρομικό τρόπο ένα δυαδικό δένδρο αναζήτησης από ταξινομημένη λίστα με Ο(n)
 	void treeReconstruction(TreeNode<T>* node, TreeNode<T>* parentNode, char succession); //ανακατασκευάζει το υποδένδρο με ρίζα node
+	int countTreeNodes(TreeNode<T>* node);
 	//void prettyPrint() bonus challenge
 private:
 	TreeNode<T> *root;
@@ -35,6 +36,22 @@ private:
 	double c;	//σταθερά c
 	double b;	//σταθερά b
 };
+
+template<typename T>
+int BSTree<T>::countTreeNodes(TreeNode<T>* node)
+{
+	int left,right;
+	if(!node) 
+		return 0;
+	else
+	{
+		left = countTreeNodes(node->leftChild);
+		right = countTreeNodes(node->rightChild);
+
+		return left+right+1;
+	}
+}
+
 /* Επιστρέφει αναδρομικά δείκτη στον κόμβο του υποδένδρου με
 ρίζα node, με την μικρότερη τιμή, προφανώς σε ΔΔΑ είναι ο κάτω 
 αριστερά κόμβος */
@@ -83,7 +100,7 @@ void BSTree<T>::deleteNode(const T& key)
 template<typename T>
 void BSTree<T>::printTreeStats()
 {
-	int heightUlt = c*log2(n+1)+b+1;
+	int heightUlt = c*log2(n+1)+b;
 	std::cout<<"Height of tree is: "<<maxHeight(getRoot())<<std::endl;
 	std::cout<<"Number of elements: "<<n<<std::endl;
 	std::cout<<"Deletion counter: "<<d<<std::endl;
@@ -149,14 +166,7 @@ BSTree<T>::BSTree(double cusr, double busr)
 	c = cusr;
 	b = busr;
 }
-//template<typename T>
-// BSTree<T>::~BSTree()
-// {
-// 	if(!isEmpty())
-// 	{
-// 		delete root;
-// 	}
-// }
+
 template<typename T>
 bool BSTree<T>::isEmpty()
 {
@@ -247,19 +257,16 @@ void BSTree<T>::printTree(char order, TreeNode<T>* node)
 template<typename T>
 bool BSTree<T>::searchTree(const T& key, T& e)
 {
-	int count = -1;
 	TreeNode<T> *current = root;
 	while(current)
 	{
 		if (key < current->data)
 		{
 			current = current->leftChild;
-			count++;
 		}
 		else if (key > current->data)
 		{
 			current = current->rightChild;
-			count++;
 		}
 		else 
 		{
@@ -336,7 +343,7 @@ int BSTree<T>::insert(const T& elem)
 			{
 				dir = 'l';
 			}
-			if (maxHeight(temp) > ceil(c*log2(li->length()+1)))
+			if (maxHeight(temp) > ceil(c*log2(countTreeNodes(temp)+1)))
 			{
 				printTree('p');
 				printTreeStats();
@@ -381,7 +388,7 @@ TreeNode<T>* BSTree<T>::deleteNode(const T& key, TreeNode<T>* node, bool &flag)
 	}
 	else if(node->leftChild and node->rightChild)
 	{
-		temp = minNode(node->rightChild);	//KALO DIORTHOMA
+		temp = minNode(node->rightChild);
 		node->data = temp->data;
 		node->rightChild = deleteNode(node->data, node->rightChild,flag);
 	}
